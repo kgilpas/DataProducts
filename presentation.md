@@ -1,0 +1,63 @@
+---
+title       : Developing Data Products App
+subtitle    : Celsius to Fahrenheit converter
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+ * Throughout the world, the centigrade temperature system has been standardly used
+ * But not in the USA and a few other countries
+ * So let's create an app that'll convert centigrade to the USA's Fahrenheit system
+
+--- .class #id 
+
+## Equation
+
+ * To do that, we use the following equation to turn centigrade into Fahrenheit 
+ 
+ $$^{\circ}\mathrm{F}=^{\circ}\mathrm{C}*(9/5)+32 $$
+
+---
+
+## Function
+
+ * The function would perform the operations of the equation behind the app
+ * So say, you input 0 degrees celsius you should obtain 32 Fahrenheit
+ 
+ 
+ ```r
+ x=0
+ fahrenheit=x*(9/5)+32
+ fahrenheit
+ ```
+ 
+ ```
+ ## [1] 32
+ ```
+
+---
+
+## Shiny App
+
+ * Have a try at it and next time you're in the USA and need to check the temperature in Fahrenheit use the app!
+ * Code for `server.R` is presented below
+
+```
+FahrenheitConverter <- function(celsius) (celsius*9/5)+32
+
+shinyServer(
+     function(input, output){
+          output$inputValue <- renderPrint({input$celsius})
+          output$conversion <- renderPrint({FahrenheitConverter(input$celsius)})
+      }
+)
+
+```
